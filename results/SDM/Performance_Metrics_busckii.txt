@@ -1,0 +1,7 @@
+Performance Metrics for Species:busckii
+Training R-squared:0.554
+Training RMSE:0.016
+Test R-squared:0.002
+Test RMSE:0.023
+Test MAE:0.004
+

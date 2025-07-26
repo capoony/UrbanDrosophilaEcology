@@ -1,0 +1,7 @@
+Performance Metrics for Species:virilis
+Training R-squared:0.591
+Training RMSE:0.055
+Test R-squared:0.133
+Test RMSE:0.04
+Test MAE:0.009
+

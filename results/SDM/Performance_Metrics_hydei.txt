@@ -1,0 +1,7 @@
+Performance Metrics for Species:hydei
+Training R-squared:0.498
+Training RMSE:0.125
+Test R-squared:0.104
+Test RMSE:0.183
+Test MAE:0.128
+

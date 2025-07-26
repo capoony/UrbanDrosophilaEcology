@@ -1,0 +1,7 @@
+Performance Metrics for Species:suzukii
+Training R-squared:0.295
+Training RMSE:0.139
+Test R-squared:0.004
+Test RMSE:0.091
+Test MAE:0.041
+

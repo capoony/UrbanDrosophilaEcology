@@ -1,0 +1,9 @@
+Performance Metrics for Species:melanogaster
+Training R-squared:1
+Training RMSE:0.001
+Test R-squared:0.999
+Test RMSE:0.015
+Test MAE:0.01
+Cross-Validation RMSE:0.036
+Optimal Rounds:100
+

@@ -1,0 +1,7 @@
+Performance Metrics for Species:mercatorum
+Training R-squared:0.567
+Training RMSE:0.238
+Test R-squared:0.461
+Test RMSE:0.27
+Test MAE:0.202
+

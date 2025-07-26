@@ -1,0 +1,7 @@
+Performance Metrics for Species:melanogaster
+Training R-squared:0.396
+Training RMSE:0.298
+Test R-squared:0.21
+Test RMSE:0.334
+Test MAE:0.293
+

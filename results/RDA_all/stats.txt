@@ -1,0 +1,77 @@
+
+Call:
+rda(formula = DATA.spec.all.hell ~ Condition(Latitude + Longitude) +      Monthly_SA + INCAL_WindSpeedEast_daily + Yearly_TM + Yearly_RR +      Yearly_SA + Monthly_RR + INCAL_DewPointTemperature_daily +      DATA.date.all, data = as.data.frame(DATA.factors.all)) 
+
+Partitioning of variance:
+               Inertia Proportion
+Total         0.449587    1.00000
+Conditioned   0.008918    0.01984
+Constrained   0.081883    0.18213
+Unconstrained 0.358785    0.79803
+
+Eigenvalues, and their contribution to the variance 
+after removing the contribution of conditiniong variables
+
+Importance of components:
+                         RDA1    RDA2     RDA3     RDA4     RDA5      RDA6
+Eigenvalue            0.04884 0.02173 0.006523 0.002299 0.001615 0.0006011
+Proportion Explained  0.11083 0.04931 0.014802 0.005217 0.003665 0.0013642
+Cumulative Proportion 0.11083 0.16014 0.174942 0.180159 0.183824 0.1851883
+                           RDA7      RDA8    PC1    PC2     PC3     PC4     PC5
+Eigenvalue            0.0001740 0.0001026 0.1571 0.0692 0.04663 0.02892 0.02087
+Proportion Explained  0.0003949 0.0002328 0.3564 0.1570 0.10582 0.06562 0.04737
+Cumulative Proportion 0.1855833 0.1858160 0.5422 0.6993 0.80508 0.87070 0.91807
+                          PC6      PC7      PC8      PC9     PC10     PC11
+Eigenvalue            0.01340 0.009682 0.004326 0.003779 0.002585 0.001666
+Proportion Explained  0.03041 0.021970 0.009816 0.008575 0.005865 0.003780
+Cumulative Proportion 0.94848 0.970447 0.980263 0.988838 0.994704 0.998483
+                           PC12      PC13
+Eigenvalue            0.0004787 0.0001896
+Proportion Explained  0.0010864 0.0004303
+Cumulative Proportion 0.9995697 1.0000000
+
+Accumulated constrained eigenvalues
+Importance of components:
+                         RDA1    RDA2     RDA3     RDA4     RDA5      RDA6
+Eigenvalue            0.04884 0.02173 0.006523 0.002299 0.001615 0.0006011
+Proportion Explained  0.59646 0.26536 0.079661 0.028077 0.019723 0.0073415
+Cumulative Proportion 0.59646 0.86182 0.941480 0.969557 0.989280 0.9966218
+                          RDA7      RDA8
+Eigenvalue            0.000174 0.0001026
+Proportion Explained  0.002125 0.0012528
+Cumulative Proportion 0.998747 1.0000000
+
+Permutation test for rda under reduced model
+Permutation: free
+Number of permutations: 999
+
+Model: rda(formula = DATA.spec.all.hell ~ Condition(Latitude + Longitude) + Monthly_SA + INCAL_WindSpeedEast_daily + Yearly_TM + Yearly_RR + Yearly_SA + Monthly_RR + INCAL_DewPointTemperature_daily + DATA.date.all, data = as.data.frame(DATA.factors.all))
+          Df Variance     F Pr(>F)    
+Model      8  0.08188 7.617  0.001 ***
+Residual 267  0.35879                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Permutation test for rda under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 999
+
+Model: rda(formula = DATA.spec.all.hell ~ Condition(Latitude + Longitude) + Monthly_SA + INCAL_WindSpeedEast_daily + Yearly_TM + Yearly_RR + Yearly_SA + Monthly_RR + INCAL_DewPointTemperature_daily + DATA.date.all, data = as.data.frame(DATA.factors.all))
+                                 Df Variance       F Pr(>F)    
+Monthly_SA                        1  0.02464 18.3351  0.001 ***
+INCAL_WindSpeedEast_daily         1  0.00969  7.2076  0.001 ***
+Yearly_TM                         1  0.00817  6.0836  0.001 ***
+Yearly_RR                         1  0.01814 13.4997  0.001 ***
+Yearly_SA                         1  0.00837  6.2276  0.002 ** 
+Monthly_RR                        1  0.00532  3.9562  0.010 ** 
+INCAL_DewPointTemperature_daily   1  0.00370  2.7561  0.022 *  
+DATA.date.all                     1  0.00386  2.8699  0.033 *  
+Residual                        267  0.35879                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+$r.squared
+[1] 0.1821302
+
+$adj.r.squared
+[1] 0.1593698
+

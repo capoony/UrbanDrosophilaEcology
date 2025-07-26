@@ -1,0 +1,7 @@
+Performance Metrics for Species:subobscura
+Training R-squared:0.544
+Training RMSE:0.013
+Test R-squared:NA
+Test RMSE:0.006
+Test MAE:0.002
+

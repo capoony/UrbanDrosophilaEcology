@@ -1,0 +1,7 @@
+Performance Metrics for Species:funebris
+Training R-squared:0.321
+Training RMSE:0.094
+Test R-squared:0.057
+Test RMSE:0.121
+Test MAE:0.075
+

@@ -1,0 +1,7 @@
+Performance Metrics for Species:repleta
+Training R-squared:0.504
+Training RMSE:0.19
+Test R-squared:0.022
+Test RMSE:0.267
+Test MAE:0.185
+

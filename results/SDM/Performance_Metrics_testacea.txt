@@ -1,0 +1,7 @@
+Performance Metrics for Species:testacea
+Training R-squared:0.081
+Training RMSE:0.027
+Test R-squared:NA
+Test RMSE:0.008
+Test MAE:0.003
+

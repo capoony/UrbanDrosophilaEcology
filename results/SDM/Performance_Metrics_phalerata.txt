@@ -1,0 +1,7 @@
+Performance Metrics for Species:phalerata
+Training R-squared:0.098
+Training RMSE:0.066
+Test R-squared:NA
+Test RMSE:0.018
+Test MAE:0.007
+

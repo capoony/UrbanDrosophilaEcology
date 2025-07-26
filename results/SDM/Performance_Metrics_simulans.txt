@@ -1,0 +1,7 @@
+Performance Metrics for Species:simulans
+Training R-squared:0.399
+Training RMSE:0.164
+Test R-squared:0.062
+Test RMSE:0.175
+Test MAE:0.1
+
