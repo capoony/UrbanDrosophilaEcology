@@ -49,7 +49,7 @@ setwd(WD)
 
 # --- Data Loading and Preparation ---
 # Read cleaned sample data
-DATA <- read.csv("data/Samples_inca_spartacus_vienna_clean.csv", header = TRUE)
+DATA <- read.csv("data/Samples_inca_spartacus_vienna_clean_final.csv", header = TRUE)
 
 # Remove non-Viennese factors and omit rows with missing values
 DATA.all <- DATA[, 1:36] %>% na.omit()
@@ -61,14 +61,149 @@ DATA.Vienna <- na.omit(DATA)
 dir.create("results/Descriptive", showWarnings = FALSE)
 
 # --- Participant Summary ---
-# Summarize number of samples per participant
-sum_part <- DATA.Vienna %>%
+# Summarize number of samples per participant in Vienna
+sum_part.Vienna <- DATA.Vienna %>%
   group_by(ParticipantId) %>%
   summarize(Count = n()) %>%
   arrange(desc(Count)) %>%
   group_by(Count) %>%
   summarize(Number = n()) %>%
   arrange(desc(Number))
+
+# weighted mean of samples per participant
+mean_part.Vienna <- sum_part.Vienna %>%
+  summarize(WeightedMean = sum(Count * Number) / sum(Number))
+
+## total number of participants
+total_participants.Vienna <- sum(sum_part.Vienna$Number)
+
+# Summarize number of samples per all participants
+sum_part <- DATA %>%
+  group_by(ParticipantId) %>%
+  summarize(Count = n()) %>%
+  arrange(desc(Count)) %>%
+  group_by(Count) %>%
+  summarize(Number = n()) %>%
+  arrange(desc(Number))
+
+# weighted mean of samples per participant
+mean_part <- sum_part %>%
+  summarize(WeightedMean = sum(Count * Number) / sum(Number))
+
+## total number of participants
+total_participants <- sum(sum_part$Number)
+
+## count for each species (7:19) if it is present or absent in Indoors or outdoors (0 or 1 in column 20)
+species_presence <- DATA.Vienna %>%
+  dplyr::select(7:19, 20) %>%
+  pivot_longer(cols = -Indoors, names_to = "Species", values_to = "Presence") %>%
+  mutate(Absence = ifelse(Presence == 0, 1, 0), Presence = ifelse(Presence > 0, 1, 0)) %>%
+  group_by(Species, Indoors) %>%
+  summarize(
+    Present = sum(Presence),
+    Absent = sum(Absence),
+    .groups = "drop"
+  ) %>%
+  pivot_longer(
+    cols = c(Present, Absent),
+    names_to = "Presence_Status",
+    values_to = "Count"
+  )
+
+# renname leves of Indoors
+species_presence$Indoors <- factor(species_presence$Indoors, levels = c("0", "1"), labels = c("Outdoors", "Indoors"))
+
+# Chi-square test for each species
+chi_results <- DATA.Vienna %>%
+  dplyr::select(7:19, 20) %>%
+  pivot_longer(cols = -Indoors, names_to = "Species", values_to = "Presence") %>%
+  mutate(Presence = ifelse(Presence > 0, 1, 0)) %>%
+  group_by(Species) %>%
+  summarize(
+    chisq = {
+      tbl <- table(Presence, Indoors)
+      if (all(dim(tbl) == c(2, 2))) {
+        test <- suppressWarnings(chisq.test(tbl))
+        test$statistic
+      } else {
+        NA
+      }
+    },
+    p.value = {
+      tbl <- table(Presence, Indoors)
+      if (all(dim(tbl) == c(2, 2))) {
+        test <- suppressWarnings(chisq.test(tbl))
+        test$p.value
+      } else {
+        NA
+      }
+    },
+    .groups = "drop"
+  )
+
+# Merge chi-square results into species_presence
+species_presence <- left_join(species_presence, chi_results, by = "Species")
+## plot as stacked barplots for presence and absence of species in Indoors and Outdoors
+# Calculate relative counts within each Species and Indoors group
+species_presence <- species_presence %>%
+  group_by(Species, Indoors) %>%
+  mutate(Relative = Count / sum(Count)) %>%
+  ungroup()
+
+# Prepare asterisks for significance
+asterisks <- chi_results %>%
+  mutate(
+    signif = case_when(
+      p.value < 0.001 ~ "***",
+      p.value < 0.01 ~ "**",
+      p.value < 0.05 ~ "*",
+      TRUE ~ ""
+    )
+  )
+
+# Find y position for asterisks (top of the bars for each species)
+asterisk_positions <- species_presence %>%
+  group_by(Species) %>%
+  summarize(y = 0.9, .groups = "drop") %>%
+  left_join(asterisks, by = "Species")
+
+wes_distinct_palette <- c(
+  "#EAD2AC", "#C29E73", "#8F5A5A", "#5E8D88", "#2F4B4F",
+  "#F3B061", "#F05E23", "#D9A5A5", "#87AFC7", "#486F8A",
+  "#A8BDBE", "#7C878F", "#D4AF37"
+)
+species_data <- DATA.Vienna[, 7:19]
+species_names <- colnames(species_data)
+species_colors <- setNames(wes_distinct_palette[1:length(species_names)], species_names)
+
+# Plot
+PLOT.inout <- ggplot(species_presence, aes(x = Indoors, y = Relative, fill = Presence_Status)) +
+  geom_bar(stat = "identity", position = "stack", color = "black") +
+  facet_wrap(~Species, ncol = 2) +
+  scale_fill_manual(values = c("Presence" = "black", "Absence" = "white")) +
+  labs(
+    # title = "Species Presence and Absence in Indoors and Outdoors (Relative)",
+    x = "Location",
+    y = "Relative Count"
+  ) +
+  theme_bw() +
+  ylim(c(0, 1.2)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_text(
+    data = asterisk_positions,
+    aes(x = 1.5, y = y + 0.05, label = signif),
+    inherit.aes = FALSE,
+    size = 6,
+    vjust = 0
+  )+ 
+  # remove the legend
+  theme(legend.position = "none") 
+
+PLOT.inout
+ggsave("results/Descriptive/PresenceAbsence_Relative.pdf", PLOT, width = 4, height = 8)
+
+
+
 
 # --- Month Translation (German to English) ---
 month_translation <- c(
@@ -299,7 +434,7 @@ ggsave("results/Descriptive/Abundance.all.pdf", combined_plot, width = 10, heigh
 
 # --- Temporal Histograms: Species Counts Over Time (All) ---
 data_summary <- DATA.all %>%
-  select(collectionEnd, 7:19) %>%
+  dplyr::select(collectionEnd, 7:19) %>%
   pivot_longer(
     cols = -collectionEnd,
     names_to = "species",
@@ -328,12 +463,39 @@ PLOT <- ggplot(data_summary, aes(x = interval, y = total_count, fill = species))
     axis.text.x = element_text(angle = 45, hjust = 1),
     panel.grid.major = element_line(color = "gray80", size = 0.5)
   ) +
-  facet_wrap(~species, scales = "free_y")
+  facet_wrap(~species, scales = "free_y",ncol = 2)+
+  ##re move the legend
+  theme(legend.position = "none")
+
+## combine the two plots with ggpubr
 ggsave("results/Descriptive/TemporalPresHist.all.pdf", PLOT, width = 10, height = 5)
+
+# Combine the two plots (PLOT and PLOT.inout) and make sure that the subplots have the same width
+PLOT.inout2 <- PLOT.inout +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_line(color = "gray80", size = 0.5)
+  ) +
+  facet_wrap(~Species, scales = "free_y", ncol = 2) +
+  labs(
+    x = "Two-Week Intervals",
+    y = "Total Count",
+    title = "Histogram of Species Counts Over Two-Week Intervals"
+  )
+
+# Combine the two plots
+PLOT2 <- PLOT + PLOT.inout2 +
+  plot_layout(ncol = 2) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    panel.grid.major = element_line(color = "gray80", size = 0.5)
+  ) 
+ggsave("results/Descriptive/TemporalPresHist_combined.pdf", PLOT2, width = 8, height = 10)
+
 
 # --- Temporal Histograms: Species Counts Over Time (Vienna) ---
 data_summary <- DATA.Vienna %>%
-  select(collectionEnd, 7:19) %>%
+  dplyr::select(collectionEnd, 7:19) %>%
   pivot_longer(
     cols = -collectionEnd,
     names_to = "species",
@@ -362,5 +524,5 @@ PLOT <- ggplot(data_summary, aes(x = interval, y = total_count, fill = species))
     axis.text.x = element_text(angle = 45, hjust = 1),
     panel.grid.major = element_line(color = "gray80", size = 0.5)
   ) +
-  facet_wrap(~species, scales = "free_y")
+  facet_wrap(~species, scales = "free_y",ncol=2)
 ggsave("results/Descriptive/TemporalPresHist.Vienna.pdf", PLOT, width = 10, height = 5)
