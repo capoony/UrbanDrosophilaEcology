@@ -1,0 +1,67 @@
+Shannon 
+____________
+Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: Shannon
+             Chisq Df Pr(>Chisq)
+(Intercept) 0.1067  1     0.7439
+Latitude    0.2474  1     0.6189
+Longitude   0.3020  1     0.5826
+Dim.1       2.1314  1     0.1443
+Dim.2       1.9058  1     0.1674
+Dim.3       0.2762  1     0.5992
+Dim.4       0.2414  1     0.6232
+Simpson 
+____________
+Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: Simpson
+             Chisq Df Pr(>Chisq)
+(Intercept) 0.0160  1     0.8993
+Latitude    0.0698  1     0.7917
+Longitude   0.1482  1     0.7003
+Dim.1       1.9161  1     0.1663
+Dim.2       1.3186  1     0.2508
+Dim.3       0.8335  1     0.3613
+Dim.4       0.3317  1     0.5647
+InvSimpson 
+____________
+Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: InvSimpson
+             Chisq Df Pr(>Chisq)
+(Intercept) 0.4078  1     0.5231
+Latitude    0.2555  1     0.6132
+Longitude   0.0064  1     0.9361
+Dim.1       1.8558  1     0.1731
+Dim.2       1.1355  1     0.2866
+Dim.3       1.8152  1     0.1779
+Dim.4       0.6117  1     0.4341
+Richness 
+____________
+Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: Richness
+             Chisq Df Pr(>Chisq)
+(Intercept) 0.1316  1     0.7167
+Latitude    0.1558  1     0.6930
+Longitude   0.0797  1     0.7777
+Dim.1       1.3836  1     0.2395
+Dim.2       1.4705  1     0.2253
+Dim.3       0.0000  1     0.9981
+Dim.4       0.0468  1     0.8287
+Eveness 
+____________
+Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: Eveness
+             Chisq Df Pr(>Chisq)  
+(Intercept) 0.9485  1    0.33010  
+Latitude    1.3890  1    0.23857  
+Longitude   0.8311  1    0.36195  
+Dim.1       0.8045  1    0.36974  
+Dim.2       1.7879  1    0.18118  
+Dim.3       4.0543  1    0.04406 *
+Dim.4       3.2276  1    0.07240 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1

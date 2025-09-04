@@ -1,4 +1,4 @@
-# BioDiv_Vienna.r
+# BioDiv_all.r
 # Analysis of Drosophila biodiversity in Vienna
 # Author: [Your Name]
 # Date: [Date]
@@ -20,38 +20,43 @@ library(scales)
 args <- commandArgs(trailingOnly = TRUE)
 WD <- if (length(args) == 0) getwd() else args[1]
 setwd(WD)
+# setwd("/Users/martinkapun/Documents/GitHub/UrbanDrosophilaEcology")
+# setwd("D:/GitHub/UrbanDrosophilaEcology")
 
 # --- Data Import and Cleaning ---
 DATA <- read.csv("data/Samples_inca_spartacus_vienna_clean_final.csv", header = TRUE)
-DATA.Vienna <- na.omit(DATA)
-DATA.Vienna <- DATA.Vienna[DATA.Vienna$sampleId != "VCFC_289", ] # Remove Bellaria
-dir.create("results/BioDiv_Vienna", showWarnings = FALSE)
-DATA.Vienna <- DATA.Vienna[rowSums(DATA.Vienna[, 7:19]) > 0, ] # Remove empty samples
+
+# Remove non-Viennese factors and omit rows with missing values
+DATA.all <- DATA[, 1:36] %>% na.omit()
+
+DATA.all <- DATA.all[DATA.all$sampleId != "VCFC_289", ] # Remove Bellaria
+dir.create("results/BioDiv_all", showWarnings = FALSE)
+DATA.all <- DATA.all[rowSums(DATA.all[, 7:19]) > 0, ] # Remove empty samples
 
 # --- Environmental Data Preparation ---
-DATA.env.Vienna <- DATA.Vienna %>%
-    select(20:ncol(.)) %>%
-    select(where(~ sum(.) != 0)) # Remove columns with only zeros
-DATA.env_scaled.Vienna <- scale(DATA.env.Vienna)
+DATA.env.all <- DATA.all %>%
+    dplyr::select(20:ncol(.)) %>%
+    dplyr::select(where(~ sum(.) != 0)) # Remove columns with only zeros
+DATA.env_scaled.all <- scale(DATA.env.all)
 
 # --- PCA Analysis ---
-pca_result <- PCA(DATA.env_scaled.Vienna, scale.unit = FALSE)
+pca_result <- PCA(DATA.env_scaled.all, scale.unit = FALSE)
 scree_plot <- fviz_screeplot(pca_result, addlabels = TRUE, ylim = c(0, 50))
-ggsave("results/BioDiv_Vienna/PCA_scree.pdf", scree_plot, width = 10, height = 6)
+ggsave("results/BioDiv_all/PCA_scree.pdf", scree_plot, width = 10, height = 6)
 
 # Biplots for PCA axes
 biplot_1_2 <- fviz_pca_biplot(pca_result, axes = c(1, 2), geom.ind = "blank", repel = TRUE, col.var = "black")
 biplot_3_4 <- fviz_pca_biplot(pca_result, axes = c(3, 4), geom.ind = "blank", repel = TRUE, col.var = "black")
 biplot <- grid.arrange(biplot_1_2, biplot_3_4, ncol = 2)
-ggsave("results/BioDiv_Vienna/PCA_biplot.pdf", biplot, width = 15, height = 7)
-ggsave("results/BioDiv_Vienna/PCA_biplot.png", biplot, width = 15, height = 7)
+ggsave("results/BioDiv_all/PCA_biplot.pdf", biplot, width = 15, height = 7)
+ggsave("results/BioDiv_all/PCA_biplot.png", biplot, width = 15, height = 7)
 
 # Save PCA loadings
-write.table(pca_result$var$coord, "results/BioDiv_Vienna/PCA_loadings.csv", row.names = TRUE, quote = FALSE, sep = ",")
+write.table(pca_result$var$coord, "results/BioDiv_all/PCA_loadings.csv", row.names = TRUE, quote = FALSE, sep = ",")
 
 # --- Species Data Preparation ---
-DATA.spec <- as.data.frame(DATA.Vienna[, 7:19])
-rownames(DATA.spec) <- DATA.Vienna$sampleId
+DATA.spec <- as.data.frame(DATA.all[, 7:19])
+rownames(DATA.spec) <- DATA.all$sampleId
 DATA.spec[is.na(DATA.spec)] <- 0
 DATA.spec.hell <- decostand(DATA.spec, method = "hellinger")
 
@@ -64,7 +69,7 @@ evenness <- shannon_div / log(richness)
 
 # --- Combine Factors and PCA Scores ---
 pca_scores <- scale(pca_result$ind$coord[, 1:4])
-DATA.factors <- cbind(DATA.Vienna[, 5:6], Days = DATA.Vienna$Days, pca_scores)
+DATA.factors <- cbind(DATA.all[, 5:6], Days = DATA.all$Days, pca_scores)
 DATA.factors[is.na(DATA.factors)] <- 0
 
 # --- Compile Diversity Data ---
@@ -155,20 +160,21 @@ histograms <- list(
 )
 # Save histograms to one file with four subplots
 combined_histogram <- grid.arrange(grobs = histograms, ncol = 4)
-ggsave("results/BioDiv_Vienna/Diversity_histograms.pdf", combined_histogram, width = 12, height = 4)
+ggsave("results/BioDiv_all/Diversity_histograms.pdf", combined_histogram, width = 12, height = 4)
 
-write.table(div_data, "results/BioDiv_Vienna/Diversity.csv", quote = FALSE, sep = ",", row.names = TRUE)
+# --- Save Diversity Data ---
+write.table(div_data, "results/BioDiv_all/Diversity.csv", quote = FALSE, sep = ",", row.names = TRUE)
 
 # --- NMDS Ordination ---
 nmds <- metaMDS(DATA.spec, distance = "bray", k = 2, trymax = 100)
-pdf("results/BioDiv_Vienna/Bray_NMDS.pdf", width = 10, height = 6)
+pdf("results/BioDiv_all/Bray_NMDS.pdf", width = 10, height = 6)
 plot(nmds, main = "NMDS - Bray-Curtis")
 abline(h = 0, v = 0, lty = 2, col = "gray")
 text(nmds, display = "species", labels = colnames(DATA.spec), col = "red", cex = 0.8, pos = 3)
 
 # --- Environmental Fit ---
 ef <- envfit(nmds, DATA.factors[, 4:7], permutations = 99999)
-sink("results/BioDiv_Vienna/Envfit.txt")
+sink("results/BioDiv_all/Envfit.txt")
 print(ef)
 sink()
 plot(ef, add = TRUE)
@@ -189,8 +195,8 @@ remove_outliers <- function(df, cols) {
 
 # --- Mixed-Effects Modeling and Plotting ---
 plot_fixed_effects <- c("Dim.1", "Dim.2", "Dim.3", "Dim.4")
-dir.create("results/BioDiv_Vienna/plots", showWarnings = FALSE)
-sink("results/BioDiv_Vienna/stats.txt")
+dir.create("results/BioDiv_all/plots", showWarnings = FALSE)
+sink("results/BioDiv_all/stats.txt")
 
 for (resp in names(div_data)[1:5]) {
     cat(resp, "\n____________\n")
@@ -222,7 +228,7 @@ for (resp in names(div_data)[1:5]) {
             inherit.aes = FALSE, hjust = 1.2, vjust = 1.5, size = 3, color = "red"
         ) +
         scale_y_continuous(labels = label_number(accuracy = 0.1))
-    ggsave(paste0("results/BioDiv_Vienna/plots/", resp, "_correlations_Dim1-3.png"), p, width = 6, height = 2)
-    ggsave(paste0("results/BioDiv_Vienna/plots/", resp, "_correlations_Dim1-3.pdf"), p, width = 6, height = 2)
+    ggsave(paste0("results/BioDiv_all/plots/", resp, "_correlations_Dim1-3.png"), p, width = 6, height = 2)
+    ggsave(paste0("results/BioDiv_all/plots/", resp, "_correlations_Dim1-3.pdf"), p, width = 6, height = 2)
 }
 sink()

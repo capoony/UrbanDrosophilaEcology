@@ -15,6 +15,7 @@ UrbanDrosophilaEcology/
 │   ├── BioDiv_Vienna/             # Biodiversity analysis results
 │   ├── RDA_all/                   # Redundancy analysis outputs
 │   ├── RDA_Vienna_full/           # Vienna-specific RDA results
+│   ├── Rarefaction/               # Species accumulation analysis
 │   ├── Descriptive/               # Descriptive statistics
 │   └── SDM/                       # Species distribution models
 ├── scripts/                       # Python utilities
@@ -27,6 +28,7 @@ UrbanDrosophilaEcology/
 │   ├── GetEOdata.sh               # Earth observation data acquisition
 │   ├── BioDiv_Vienna.r            # Biodiversity analysis
 │   ├── RDA_Vienna_full.r          # Redundancy analysis
+│   ├── Rarefaction_Vienna.r       # Species accumulation and completeness analysis
 │   ├── Descriptive.r              # Descriptive statistics
 │   └── SDM_Vienna.sh              # Species distribution modeling
 └── README.md                      # This file
@@ -97,7 +99,33 @@ bash shell/main.sh
 - NMDS ordination plots
 - Statistical significance tests
 
-### 4. Redundancy Analysis (RDA)
+### 4. Rarefaction Analysis
+
+**Script:** `shell/Rarefaction_Vienna.r`
+
+**Methods:**
+
+- Species accumulation curve analysis with asymptotic prediction
+- Michaelis-Menten model fitting for total richness estimation
+- Bootstrap confidence intervals (1,000 replicates) for asymptotic estimates
+- Sampling completeness assessment using statistical tests
+- Random sampling method for species accumulation curves
+
+**Statistical Tests:**
+
+- Bootstrap Z-test for sampling completeness
+- 95% confidence intervals for predicted total species richness
+- Goodness-of-fit evaluation for asymptotic models
+- Assessment of significant gaps between observed and predicted richness
+
+**Outputs:**
+
+- Species accumulation curves with confidence intervals and model fits
+- Statistical summary tables with completeness metrics
+- Bootstrap-based uncertainty quantification
+- Visual annotations showing observed vs. predicted richness patterns
+
+### 5. Redundancy Analysis (RDA)
 
 **Scripts:**
 
@@ -127,7 +155,7 @@ bash shell/main.sh
 - Variance partitioning results
 - Model selection statistics
 
-### 5. Species Distribution Modeling (SDM)
+### 6. Species Distribution Modeling (SDM)
 
 **Scripts:**
 
@@ -135,7 +163,7 @@ bash shell/main.sh
 
 **Methods:**
 
-- **Single Algorithm (Standard)**: Random Forest with 500 trees
+- **Single Algorithm**: Random Forest with 500 trees
 - 80/20 train-test split with stratified sampling
 - 5-fold cross-validation
 - Performance metrics: R², RMSE, MAE

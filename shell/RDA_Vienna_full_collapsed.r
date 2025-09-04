@@ -18,6 +18,7 @@ if (length(args) == 0) {
     WD <- args[1]
 }
 setwd(WD)
+setwd("D:/GitHub/UrbanDrosophilaEcology")
 
 # --- Create Results Directory ---
 dir.create("results/RDA_Vienna_full_collapsed", showWarnings = FALSE, recursive = TRUE)
@@ -54,6 +55,7 @@ DATA.env.Vienna <- DATA.env.Vienna %>%
         -Monthly_RR,
         -Monthly_SA,
         -Daily_TN,
+        -Daily_TX,
         -Daily_RR,
         -Daily_SA,
         -outdoorsports,

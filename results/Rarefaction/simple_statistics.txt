@@ -1,0 +1,10 @@
+Metric	Value
+Observed_Richness	13
+Predicted_Richness	14.6765839530249
+Sampling_Completeness_Percent	88.5764701214456
+Bootstrap_CI_Lower	10.2981516874883
+Bootstrap_CI_Upper	16.5110220338752
+Statistical_Test	Bootstrap Z-test
+Test_p_value	0.336427038912883
+Significant_Gap	No
+Within_CI	Yes
