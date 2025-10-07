@@ -10,27 +10,27 @@ setwd("D:/GitHub/UrbanDrosophilaEcology/")
 if (file.exists("results/ClimateChange/Spartacus_full.csv")) {
     cat("Loading existing climate data...\n")
     spartacus_full <- read.csv("results/ClimateChange/Spartacus_full.csv", header = TRUE, stringsAsFactors = FALSE)
-    
+
     # Basic data processing
     spartacus_full$Date <- as.Date(spartacus_full[, 1], format = "%Y-%m-%dT%H:%M+%S:00")
     spartacus_full$Year <- lubridate::year(spartacus_full$Date)
     spartacus_full$Temp <- as.numeric(spartacus_full[, 3])
-    
+
     # Remove rows with missing temperature data
     spartacus_full <- spartacus_full %>%
         filter(!is.na(Temp)) %>%
         filter(Year < 2025)
-    
+
     # Add Vienna zone classification
     spartacus_full <- spartacus_full %>%
         mutate(
             vienna_zone = case_when(
-                lat >= 48.172825544645214 & lat <= 48.22669250879852 & 
-                lon >= 16.328909082414857 & lon <= 16.380336527494304 ~ "Inner_Vienna",
+                lat >= 48.172825544645214 & lat <= 48.22669250879852 &
+                    lon >= 16.328909082414857 & lon <= 16.380336527494304 ~ "Inner_Vienna",
                 TRUE ~ "Outer_Vienna"
             )
         )
-    
+
     # Create locations summary
     locations_summary <- spartacus_full %>%
         group_by(lat, lon, vienna_zone) %>%
@@ -40,12 +40,11 @@ if (file.exists("results/ClimateChange/Spartacus_full.csv")) {
             .groups = "drop"
         ) %>%
         rename(Latitude = lat, Longitude = lon)
-    
+
     cat("Data summary:\n")
     print(head(locations_summary))
     cat("Range of n_records:", min(locations_summary$n_records), "to", max(locations_summary$n_records), "\n")
     cat("Unique vienna_zone values:", unique(locations_summary$vienna_zone), "\n")
-    
 } else {
     cat("No existing climate data found. Creating dummy data for testing...\n")
     # Create dummy data for testing
@@ -69,13 +68,16 @@ bbox <- c(
 cat("Bounding box:", bbox, "\n")
 
 # Get Vienna map
-tryCatch({
-    vienna_map <- get_stadiamap(bbox = bbox, maptype = "stamen_toner", zoom = 10)
-    cat("Map downloaded successfully.\n")
-}, error = function(e) {
-    cat("Error downloading map:", e$message, "\n")
-    stop("Cannot proceed without map")
-})
+tryCatch(
+    {
+        vienna_map <- get_stadiamap(bbox = bbox, maptype = "stamen_toner", zoom = 10)
+        cat("Map downloaded successfully.\n")
+    },
+    error = function(e) {
+        cat("Error downloading map:", e$message, "\n")
+        stop("Cannot proceed without map")
+    }
+)
 
 # Define inner Vienna coordinates for rectangle
 inner_vienna_coords <- data.frame(
