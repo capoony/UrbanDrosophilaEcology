@@ -1,0 +1,989 @@
+=== TEMPORAL ANALYSIS - REPEATED SITES (>= 3 samples per location) ===
+
+Total locations: 14 
+Total samples: 134 
+Proportion of full dataset: 60.4 %
+
+--- Sampling Frequency Distribution ---
+
+ 3  4  5  6  7  8 10 12 13 30 
+ 2  3  3  2  3  1  1  1  2  1 
+
+
+--- PERMANOVA: Community Composition by Month (Repeated Sites) ---
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 9999
+
+adonis2(formula = DATA.spec.repeated ~ Month, data = DATA.Vienna.repeated, permutations = 9999, method = "bray")
+          Df SumOfSqs      R2      F Pr(>F)    
+Month      1    1.638 0.03857 5.2953  2e-04 ***
+Residual 132   40.835 0.96143                  
+Total    133   42.473 1.00000                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+--- PERMANOVA: Community Composition by Week (Repeated Sites) ---
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 9999
+
+adonis2(formula = DATA.spec.repeated ~ Week, data = DATA.Vienna.repeated, permutations = 9999, method = "bray")
+          Df SumOfSqs      R2     F Pr(>F)    
+Week       1    1.709 0.04024 5.534  1e-04 ***
+Residual 132   40.764 0.95976                 
+Total    133   42.473 1.00000                 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+--- PERMANOVA: Month + Location (Repeated Sites) ---
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 9999
+
+adonis2(formula = DATA.spec.repeated ~ Month + ParticipantId, data = DATA.Vienna.repeated, permutations = 9999, method = "bray")
+               Df SumOfSqs      R2      F Pr(>F)    
+Month           1    1.638 0.03857 7.3409  1e-04 ***
+ParticipantId  13   14.280 0.33622 4.9226  1e-04 ***
+Residual      119   26.555 0.62522                  
+Total         133   42.473 1.00000                  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+--- PERMANOVA: Month * Indoors (Repeated Sites) ---
+Permutation test for adonis under reduced model
+Terms added sequentially (first to last)
+Permutation: free
+Number of permutations: 9999
+
+adonis2(formula = DATA.spec.repeated ~ Month * Indoors, data = DATA.Vienna.repeated, permutations = 9999, method = "bray")
+               Df SumOfSqs      R2       F Pr(>F)    
+Month           1    1.638 0.03857  5.8979 0.0001 ***
+Indoors         1    3.814 0.08980 13.7328 0.0001 ***
+Month:Indoors   1    0.914 0.02151  3.2892 0.0026 ** 
+Residual      130   36.107 0.85012                   
+Total         133   42.473 1.00000                   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+--- Pairwise PERMANOVA between Months (Repeated Sites) ---
+Running pairwise PERMANOVA...
+              Comparison    F_stat         R2 p_value
+1           July vs June 1.4759166 0.03558491   0.185
+2         July vs August 1.3681863 0.01917082   0.202
+3      July vs September 4.5609174 0.06285639   0.001
+4        July vs October 3.8667188 0.06150661   0.002
+5       July vs November 1.2924761 0.02918049   0.264
+6         June vs August 1.0849518 0.03092357   0.330
+7      June vs September 1.5352897 0.04578131   0.134
+8        June vs October 2.4682141 0.09691351   0.025
+9       June vs November 2.1067395 0.23133851   0.104
+10   August vs September 2.4124478 0.03745313   0.018
+11     August vs October 2.7989211 0.05016085   0.013
+12    August vs November 1.2315592 0.03221316   0.261
+13  September vs October 1.6272320 0.03091996   0.114
+14 September vs November 1.2449251 0.03434757   0.257
+15   October vs November 0.4375359 0.01654980   0.879
+
+=== TEMPORAL TRENDS IN DIVERSITY (REPEATED SITES) ===
+
+Note: Visual inspection suggests concave (non-linear) temporal trends.
+Testing linear, quadratic (polynomial), and GAM models.
+
+
+--- Shannon Diversity: Model Comparison ---
+
+1. Linear Model (Shannon ~ Month):
+
+Call:
+lm(formula = Shannon ~ Month, data = div_temporal_repeated)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.64812 -0.40251  0.03137  0.31807  1.09482 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  0.81851    0.24887   3.289  0.00129 **
+Month       -0.02840    0.02945  -0.964  0.33670   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4235 on 132 degrees of freedom
+Multiple R-squared:  0.006994,	Adjusted R-squared:  -0.0005288 
+F-statistic: 0.9297 on 1 and 132 DF,  p-value: 0.3367
+
+AIC: 154.0215 
+
+2. Quadratic Model (Shannon ~ poly(Month, 2)):
+
+Call:
+lm(formula = Shannon ~ poly(Month, 2), data = div_temporal_repeated)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.6592 -0.2707  0.0026  0.3012  1.1378 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.58115    0.03599  16.147   <2e-16 ***
+poly(Month, 2)1 -0.40839    0.41663  -0.980   0.3288    
+poly(Month, 2)2 -0.96992    0.41663  -2.328   0.0214 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4166 on 131 degrees of freedom
+Multiple R-squared:  0.04644,	Adjusted R-squared:  0.03189 
+F-statistic:  3.19 on 2 and 131 DF,  p-value: 0.04438
+
+AIC: 150.5892 
+
+3. GAM Model (Shannon ~ s(Month)):
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+Shannon ~ s(Month, k = 5)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.58115    0.03609    16.1   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+           edf Ref.df     F p-value
+s(Month) 1.967  2.447 1.614   0.167
+
+R-sq.(adj) =  0.0267   Deviance explained = 4.11%
+GCV = 0.17845  Scale est. = 0.1745    n = 134
+AIC: 151.2691 
+
+4. Model Comparison (ANOVA):
+Linear vs Quadratic:
+Analysis of Variance Table
+
+Model 1: Shannon ~ Month
+Model 2: Shannon ~ poly(Month, 2)
+  Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+1    132 23.679                              
+2    131 22.738  1   0.94075 5.4198 0.02144 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Linear vs GAM:
+Analysis of Variance Table
+
+Model 1: Shannon ~ Month
+Model 2: Shannon ~ s(Month, k = 5)
+  Res.Df    RSS      Df Sum of Sq Pr(>Chi)  
+1 132.00 23.679                             
+2 131.03 22.865 0.96746   0.81398  0.02926 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+--- Species Richness: Model Comparison ---
+
+1. Linear Model (Richness ~ Month):
+
+Call:
+lm(formula = Richness ~ Month, data = div_temporal_repeated)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2908 -1.0441 -0.0441  0.9527  5.9559 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  4.77136    0.80388   5.935 2.44e-08 ***
+Month       -0.24675    0.09513  -2.594   0.0106 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.368 on 132 degrees of freedom
+Multiple R-squared:  0.0485,	Adjusted R-squared:  0.04129 
+F-statistic: 6.728 on 1 and 132 DF,  p-value: 0.01056
+
+AIC: 468.2542 
+
+2. Quadratic Model (Richness ~ poly(Month, 2)):
+
+Call:
+lm(formula = Richness ~ poly(Month, 2), data = div_temporal_repeated)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.9616 -0.9531  0.0384  1.0384  6.0384 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       2.7090     0.1178  22.997   <2e-16 ***
+poly(Month, 2)1  -3.5485     1.3636  -2.602   0.0103 *  
+poly(Month, 2)2  -1.8627     1.3636  -1.366   0.1743    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.364 on 131 degrees of freedom
+Multiple R-squared:  0.06186,	Adjusted R-squared:  0.04754 
+F-statistic: 4.319 on 2 and 131 DF,  p-value: 0.01526
+
+AIC: 468.3589 
+
+3. GAM Model (Richness ~ s(Month)):
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+Richness ~ s(Month, k = 5)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    2.709      0.118   22.95   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+           edf Ref.df     F p-value  
+s(Month) 1.261  1.477 3.966  0.0226 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.0438   Deviance explained = 5.29%
+GCV = 1.8988  Scale est. = 1.8668    n = 134
+AIC: 468.1615 
+
+4. Model Comparison (ANOVA):
+Linear vs Quadratic:
+Analysis of Variance Table
+
+Model 1: Richness ~ Month
+Model 2: Richness ~ poly(Month, 2)
+  Res.Df    RSS Df Sum of Sq      F Pr(>F)
+1    132 247.06                           
+2    131 243.59  1    3.4698 1.8661 0.1743
+
+Linear vs GAM:
+Analysis of Variance Table
+
+Model 1: Richness ~ Month
+Model 2: Richness ~ s(Month, k = 5)
+  Res.Df    RSS      Df Sum of Sq Pr(>Chi)
+1 132.00 247.06                           
+2 131.74 245.93 0.26139    1.1322    0.119
+
+
+--- Simpson Diversity: Model Comparison ---
+
+1. Linear Model (Simpson ~ Month):
+
+Call:
+lm(formula = Simpson ~ Month, data = div_temporal_repeated)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.35682 -0.24871  0.03721  0.18369  0.43630 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept)  0.41190    0.14092   2.923  0.00408 **
+Month       -0.00918    0.01668  -0.550  0.58293   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2398 on 132 degrees of freedom
+Multiple R-squared:  0.00229,	Adjusted R-squared:  -0.005268 
+F-statistic: 0.303 on 1 and 132 DF,  p-value: 0.5829
+
+AIC: 1.60492 
+
+2. Quadratic Model (Simpson ~ poly(Month, 2)):
+
+Call:
+lm(formula = Simpson ~ poly(Month, 2), data = div_temporal_repeated)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.3788 -0.1986  0.0423  0.1933  0.4619 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.33517    0.02034  16.481   <2e-16 ***
+poly(Month, 2)1 -0.13202    0.23541  -0.561   0.5759    
+poly(Month, 2)2 -0.57703    0.23541  -2.451   0.0156 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2354 on 131 degrees of freedom
+Multiple R-squared:  0.04604,	Adjusted R-squared:  0.03148 
+F-statistic: 3.161 on 2 and 131 DF,  p-value: 0.04562
+
+AIC: -2.404222 
+
+3. GAM Model (Simpson ~ s(Month)):
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+Simpson ~ s(Month, k = 5)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.33517    0.02039   16.43   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+           edf Ref.df     F p-value
+s(Month) 1.994  2.479 1.792   0.184
+
+R-sq.(adj) =  0.0259   Deviance explained = 4.05%
+GCV = 0.057009  Scale est. = 0.055735  n = 134
+AIC: -1.642244 
+
+4. Model Comparison (ANOVA):
+Linear vs Quadratic:
+Analysis of Variance Table
+
+Model 1: Simpson ~ Month
+Model 2: Simpson ~ poly(Month, 2)
+  Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+1    132 7.5925                              
+2    131 7.2596  1   0.33296 6.0083 0.01556 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Linear vs GAM:
+Analysis of Variance Table
+
+Model 1: Simpson ~ Month
+Model 2: Simpson ~ s(Month, k = 5)
+  Res.Df    RSS      Df Sum of Sq Pr(>Chi)  
+1 132.00 7.5925                             
+2 131.01 7.3016 0.99401   0.29091  0.02212 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+--- Inverse Simpson Diversity: Model Comparison ---
+
+1. Linear Model (InvSimpson ~ Month):
+
+Call:
+lm(formula = InvSimpson ~ Month, data = div_temporal_repeated)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.7744 -0.6491 -0.1502  0.3428  2.8675 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.85626    0.42637   4.354 2.66e-05 ***
+Month       -0.01364    0.05046  -0.270    0.787    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7256 on 132 degrees of freedom
+Multiple R-squared:  0.0005533,	Adjusted R-squared:  -0.007018 
+F-statistic: 0.07308 on 1 and 132 DF,  p-value: 0.7873
+
+AIC: 298.3039 
+
+2. Quadratic Model (InvSimpson ~ poly(Month, 2)):
+
+Call:
+lm(formula = InvSimpson ~ poly(Month, 2), data = div_temporal_repeated)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8669 -0.5724 -0.0985  0.3837  2.9434 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      1.74225    0.06158  28.292   <2e-16 ***
+poly(Month, 2)1 -0.19615    0.71285  -0.275   0.7836    
+poly(Month, 2)2 -1.71230    0.71285  -2.402   0.0177 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7129 on 131 degrees of freedom
+Multiple R-squared:  0.04272,	Adjusted R-squared:  0.0281 
+F-statistic: 2.923 on 2 and 131 DF,  p-value: 0.0573
+
+AIC: 294.5283 
+
+3. GAM Model (InvSimpson ~ s(Month)):
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+InvSimpson ~ s(Month, k = 5)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  1.74225    0.06171   28.23   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+           edf Ref.df    F p-value
+s(Month) 1.998  2.483 1.73   0.209
+
+R-sq.(adj) =  0.024   Deviance explained = 3.86%
+GCV =  0.522  Scale est. = 0.51033   n = 134
+AIC: 295.0967 
+
+4. Model Comparison (ANOVA):
+Linear vs Quadratic:
+Analysis of Variance Table
+
+Model 1: InvSimpson ~ Month
+Model 2: InvSimpson ~ poly(Month, 2)
+  Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+1    132 69.501                              
+2    131 66.569  1     2.932 5.7698 0.01771 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Linear vs GAM:
+Analysis of Variance Table
+
+Model 1: InvSimpson ~ Month
+Model 2: InvSimpson ~ s(Month, k = 5)
+  Res.Df    RSS      Df Sum of Sq Pr(>Chi)  
+1    132 69.501                             
+2    131 66.854 0.99752    2.6465  0.02268 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+--- Eveness: Model Comparison ---
+
+1. Linear Model (Eveness ~ Month):
+
+Call:
+lm(formula = Eveness ~ Month, data = div_temporal_repeated)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.66439 -0.10938  0.04844  0.16517  0.33007 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)  
+(Intercept)  0.36796    0.14796   2.487   0.0145 *
+Month        0.03775    0.01765   2.139   0.0348 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2145 on 102 degrees of freedom
+  (30 Beobachtungen als fehlend gelöscht)
+Multiple R-squared:  0.04292,	Adjusted R-squared:  0.03354 
+F-statistic: 4.574 on 1 and 102 DF,  p-value: 0.03485
+
+AIC: -21.04971 
+
+2. Quadratic Model (Eveness ~ poly(Month, 2)):
+
+Call:
+lm(formula = Eveness ~ poly(Month, 2), data = div_temporal_repeated)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.69000 -0.10476  0.04345  0.16052  0.31372 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      0.68126    0.02101  32.432   <2e-16 ***
+poly(Month, 2)1  0.49995    0.25419   1.967   0.0519 .  
+poly(Month, 2)2 -0.38219    0.26399  -1.448   0.1508    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.2134 on 101 degrees of freedom
+  (30 Beobachtungen als fehlend gelöscht)
+Multiple R-squared:  0.06238,	Adjusted R-squared:  0.04381 
+F-statistic:  3.36 on 2 and 101 DF,  p-value: 0.03867
+
+AIC: -21.18585 
+
+3. GAM Model (Eveness ~ s(Month)):
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+Eveness ~ s(Month, k = 5)
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  0.68118    0.02097   32.49   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+           edf Ref.df    F p-value  
+s(Month) 1.416  1.721 2.31  0.0721 .
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.0401   Deviance explained = 5.33%
+GCV = 0.046799  Scale est. = 0.045712  n = 104
+AIC: -21.35458 
+
+4. Model Comparison (ANOVA):
+Linear vs Quadratic:
+Analysis of Variance Table
+
+Model 1: Eveness ~ Month
+Model 2: Eveness ~ poly(Month, 2)
+  Res.Df    RSS Df Sum of Sq     F Pr(>F)
+1    102 4.6946                          
+2    101 4.5992  1  0.095443 2.096 0.1508
+
+Linear vs GAM:
+Analysis of Variance Table
+
+Model 1: Eveness ~ Month
+Model 2: Eveness ~ s(Month, k = 5)
+  Res.Df    RSS      Df Sum of Sq Pr(>Chi)
+1 102.00 4.6946                           
+2 101.58 4.6436 0.41587  0.051028   0.1134
+
+
+=== RECOMMENDED MODELS (SIMPLE) ===
+Based on AIC (lower is better) and visual patterns:
+
+Shannon Diversity AICs:
+   Linear Quadratic       GAM 
+ 154.0215  150.5892  151.2691 
+Best model: Quadratic 
+
+Species Richness AICs:
+   Linear Quadratic       GAM 
+ 468.2542  468.3589  468.1615 
+Best model: GAM 
+
+Simpson Diversity AICs:
+   Linear Quadratic       GAM 
+ 1.604920 -2.404222 -1.642244 
+Best model: Quadratic 
+
+Inverse Simpson Diversity AICs:
+   Linear Quadratic       GAM 
+ 298.3039  294.5283  295.0967 
+Best model: Quadratic 
+
+Eveness AICs:
+   Linear Quadratic       GAM 
+-21.04971 -21.18585 -21.35458 
+Best model: GAM 
+
+
+=== LINEAR MIXED MODELS: Accounting for Location as Random Effect ===
+
+--- Linear Mixed Models ---
+
+1. Linear Model - Shannon ~ Month + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Shannon ~ Month + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 148.5
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.8511 -0.7756  0.0100  0.7003  2.5867 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.03804  0.1950  
+ Residual                  0.14909  0.3861  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  0.69503    0.24451   2.843
+Month       -0.01854    0.02820  -0.658
+
+Correlation of Fixed Effects:
+      (Intr)
+Month -0.965
+AIC: 156.4768 
+
+2. Linear Model - Richness ~ Month + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Richness ~ Month + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 444.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1051 -0.6877 -0.1210  0.6233  4.5990 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.6123   0.7825  
+ Residual                  1.3434   1.1591  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  4.01121    0.75325   5.325
+Month       -0.17577    0.08538  -2.059
+
+Correlation of Fixed Effects:
+      (Intr)
+Month -0.949
+AIC: 452.1361 
+
+--- Quadratic Mixed Models ---
+
+3. Quadratic Model - Shannon ~ poly(Month, 2) + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Shannon ~ poly(Month, 2) + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 137.2
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-2.09149 -0.73728  0.05014  0.63072  2.64875 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.03683  0.1919  
+ Residual                  0.14354  0.3789  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+                Estimate Std. Error t value
+(Intercept)      0.53926    0.06261   8.613
+poly(Month, 2)1 -0.24316    0.39804  -0.611
+poly(Month, 2)2 -0.96571    0.39248  -2.461
+
+Correlation of Fixed Effects:
+            (Intr) p(M,2)1
+ply(Mnt,2)1 -0.006        
+ply(Mnt,2)2  0.005 -0.024 
+AIC: 147.2178 
+
+4. Quadratic Model - Richness ~ poly(Month, 2) + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Richness ~ poly(Month, 2) + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 434.2
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1400 -0.6739 -0.0922  0.6089  4.6910 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.5979   0.7732  
+ Residual                  1.3304   1.1534  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+                Estimate Std. Error t value
+(Intercept)       2.5407     0.2343  10.845
+poly(Month, 2)1  -2.4800     1.2221  -2.029
+poly(Month, 2)2  -1.8776     1.2016  -1.563
+
+Correlation of Fixed Effects:
+            (Intr) p(M,2)1
+ply(Mnt,2)1 -0.006        
+ply(Mnt,2)2  0.005 -0.027 
+AIC: 444.1659 
+
+--- Simpson Mixed Models ---
+
+5. Linear Model - Simpson ~ Month + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Simpson ~ Month + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 1.2
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.76555 -0.87310  0.09537  0.77675  2.35400 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.01082  0.1040  
+ Residual                  0.04932  0.2221  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+             Estimate Std. Error t value
+(Intercept)  0.357881   0.139814   2.560
+Month       -0.005102   0.016176  -0.315
+
+Correlation of Fixed Effects:
+      (Intr)
+Month -0.968
+AIC: 9.16566 
+
+6. Quadratic Model - Simpson ~ poly(Month, 2) + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Simpson ~ poly(Month, 2) + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: -9.4
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.0149 -0.8417  0.1380  0.7190  2.2525 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.01055  0.1027  
+ Residual                  0.04730  0.2175  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+                Estimate Std. Error t value
+(Intercept)      0.31473    0.03429   9.178
+poly(Month, 2)1 -0.05970    0.22794  -0.262
+poly(Month, 2)2 -0.57312    0.22493  -2.548
+
+Correlation of Fixed Effects:
+            (Intr) p(M,2)1
+ply(Mnt,2)1 -0.006        
+ply(Mnt,2)2  0.005 -0.023 
+AIC: 0.5994173 
+
+--- InvSimpson Mixed Models ---
+
+7. Linear Model - InvSimpson ~ Month + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: InvSimpson ~ Month + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 298.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.2577 -0.7716 -0.2102  0.5107  3.8910 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.0410   0.2025  
+ Residual                  0.4915   0.7011  
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  1.78473    0.42828   4.167
+Month       -0.00934    0.05019  -0.186
+
+Correlation of Fixed Effects:
+      (Intr)
+Month -0.980
+AIC: 306.1223 
+
+8. Quadratic Model - InvSimpson ~ poly(Month, 2) + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: InvSimpson ~ poly(Month, 2) + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: 286
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.4646 -0.7938 -0.1716  0.4791  4.0629 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.03649  0.191   
+ Residual                  0.47607  0.690   
+Number of obs: 134, groups:  ParticipantId, 14
+
+Fixed effects:
+                Estimate Std. Error t value
+(Intercept)      1.70704    0.08147  20.952
+poly(Month, 2)1 -0.11227    0.70946  -0.158
+poly(Month, 2)2 -1.68685    0.70422  -2.395
+
+Correlation of Fixed Effects:
+            (Intr) p(M,2)1
+ply(Mnt,2)1 -0.004        
+ply(Mnt,2)2  0.004 -0.015 
+AIC: 296.0053 
+
+--- Eveness Mixed Models ---
+
+9. Linear Model - Eveness ~ Month + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Eveness ~ Month + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: -21
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.4878 -0.5432  0.2711  0.7457  1.7912 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.01226  0.1107  
+ Residual                  0.03793  0.1948  
+Number of obs: 104, groups:  ParticipantId, 14
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  0.45425    0.14786   3.072
+Month        0.02818    0.01708   1.650
+
+Correlation of Fixed Effects:
+      (Intr)
+Month -0.967
+AIC: -12.95966 
+
+10. Quadratic Model - Eveness ~ poly(Month, 2) + (1|ParticipantId):
+Linear mixed model fit by REML ['lmerMod']
+Formula: Eveness ~ poly(Month, 2) + (1 | ParticipantId)
+   Data: div_temporal_repeated
+
+REML criterion at convergence: -27.9
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.5733 -0.5352  0.2656  0.7155  1.9059 
+
+Random effects:
+ Groups        Name        Variance Std.Dev.
+ ParticipantId (Intercept) 0.01330  0.1153  
+ Residual                  0.03706  0.1925  
+Number of obs: 104, groups:  ParticipantId, 14
+
+Fixed effects:
+                Estimate Std. Error t value
+(Intercept)      0.68753    0.03864  17.793
+poly(Month, 2)1  0.36028    0.24469   1.472
+poly(Month, 2)2 -0.39635    0.24692  -1.605
+
+Correlation of Fixed Effects:
+            (Intr) p(M,2)1
+ply(Mnt,2)1 -0.003        
+ply(Mnt,2)2  0.045  0.105 
+AIC: -17.87807 
+
+--- Mixed Model Comparison (ANOVA) ---
+
+Shannon: Linear vs Quadratic
+Data: div_temporal_repeated
+Models:
+lmer_shannon_linear: Shannon ~ Month + (1 | ParticipantId)
+lmer_shannon_poly: Shannon ~ poly(Month, 2) + (1 | ParticipantId)
+                    npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)  
+lmer_shannon_linear    4 147.46 159.05 -69.728    139.46                       
+lmer_shannon_poly      5 143.41 157.90 -66.706    133.41 6.0449  1    0.01395 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Richness: Linear vs Quadratic
+Data: div_temporal_repeated
+Models:
+lmer_richness_linear: Richness ~ Month + (1 | ParticipantId)
+lmer_richness_poly: Richness ~ poly(Month, 2) + (1 | ParticipantId)
+                     npar    AIC    BIC  logLik -2*log(L)  Chisq Df Pr(>Chisq)
+lmer_richness_linear    4 447.96 459.55 -219.98    439.96                     
+lmer_richness_poly      5 447.49 461.97 -218.74    437.49 2.4775  1     0.1155
+
+Simpson: Linear vs Quadratic
+Data: div_temporal_repeated
+Models:
+lmer_simpson_linear: Simpson ~ Month + (1 | ParticipantId)
+lmer_simpson_poly: Simpson ~ poly(Month, 2) + (1 | ParticipantId)
+                    npar     AIC    BIC logLik -2*log(L)  Chisq Df Pr(>Chisq)  
+lmer_simpson_linear    4 -2.1755 9.4159 5.0878   -10.175                       
+lmer_simpson_poly      5 -6.6414 7.8478 8.3207   -16.641 6.4659  1      0.011 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+InvSimpson: Linear vs Quadratic
+Data: div_temporal_repeated
+Models:
+lmer_invsimpson_linear: InvSimpson ~ Month + (1 | ParticipantId)
+lmer_invsimpson_poly: InvSimpson ~ poly(Month, 2) + (1 | ParticipantId)
+                       npar    AIC    BIC  logLik -2*log(L)  Chisq Df
+lmer_invsimpson_linear    4 298.81 310.40 -145.40    290.81          
+lmer_invsimpson_poly      5 295.04 309.53 -142.52    285.04 5.7661  1
+                       Pr(>Chisq)  
+lmer_invsimpson_linear             
+lmer_invsimpson_poly      0.01634 *
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Eveness: Linear vs Quadratic
+Data: div_temporal_repeated
+Models:
+lmer_eveness_linear: Eveness ~ Month + (1 | ParticipantId)
+lmer_eveness_poly: Eveness ~ poly(Month, 2) + (1 | ParticipantId)
+                    npar     AIC     BIC logLik -2*log(L)  Chisq Df Pr(>Chisq)
+lmer_eveness_linear    4 -24.048 -13.471 16.024   -32.048                     
+lmer_eveness_poly      5 -24.580 -11.358 17.290   -34.580 2.5317  1     0.1116
+
+
+=== RECOMMENDED MODELS (MIXED) ===
+Based on AIC (lower is better) for mixed models:
+
+Shannon Diversity Mixed Model AICs:
+   Linear Quadratic 
+ 156.4768  147.2178 
+Best model: Quadratic 
+
+Species Richness Mixed Model AICs:
+   Linear Quadratic 
+ 452.1361  444.1659 
+Best model: Quadratic 
+
+Simpson Diversity Mixed Model AICs:
+   Linear Quadratic 
+9.1656603 0.5994173 
+Best model: Quadratic 
+
+Inverse Simpson Diversity Mixed Model AICs:
+   Linear Quadratic 
+ 306.1223  296.0053 
+Best model: Quadratic 
+
+Eveness Mixed Model AICs:
+   Linear Quadratic 
+-12.95966 -17.87807 
+Best model: Quadratic 
+
+
+
+=== SUMMARY STATISTICS ===
+
+--- Sampling Summary ---
+Total locations with >= 3 samples: 14 
+Total samples from repeated sites: 134 
+Proportion of full dataset: 60.4 %
+Locations with >= 5 samples: 14 
+Locations with >= 10 samples: 5 
+
+--- Diversity Statistics (Repeated Sites) ---
+Shannon diversity: mean = 0.581 , SD = 0.423 
+Species richness: mean = 2.71 , SD = 1.4 
+
+--- Comparison to Full Dataset ---
+Full dataset Shannon: mean = 0.584 , SD = 0.407 
+Repeated sites Shannon: mean = 0.581 , SD = 0.423 
+Difference: -0.003 
+
+Full dataset Richness: mean = 2.74 , SD = 1.35 
+Repeated sites Richness: mean = 2.71 , SD = 1.4 
+Difference: -0.03 
+

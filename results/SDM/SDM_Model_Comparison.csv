@@ -1,0 +1,8 @@
+"Species","Type","Presence_pct","GLM_AUC_train","GLM_AUC_test","GLM_Kappa_test","GLM_Overfitting","RF_AUC_train","RF_AUC_test","RF_Kappa_test","RF_Overfitting","GAM_AUC_train","GAM_AUC_test","GAM_Kappa_test","GAM_Overfitting","MaxEnt_AUC_train","MaxEnt_AUC_test","MaxEnt_Kappa_test","MaxEnt_Overfitting","Best_Model_AUC","Best_Model_Kappa"
+"melanogaster","Generalist",67.3,0.819,0.703,0.382,0.115,0.845,0.729,0.382,0.116,0.714,0.712,0.452,0.002,0.762,0.61,0.483,0.152,"RF","MaxEnt"
+"simulans","Specialist",16.5,0.628,0.508,0.095,0.119,0.849,0.822,0.628,0.028,0.834,0.754,0.458,0.08,0.882,0.749,0.478,0.132,"RF","RF"
+"suzukii","Specialist",8.3,0.926,0.757,0.473,0.169,0.916,0.869,0.598,0.048,0.827,0.832,0.393,-0.005,0.913,0.792,0.473,0.121,"RF","RF"
+"hydei","Specialist",36.2,0.821,0.464,-0.066,0.356,0.843,0.445,-0.04,0.398,0.73,0.58,-0.239,0.15,0.833,0.448,-0.04,0.384,"GAM","RF"
+"mercatorum","Generalist",79.5,0.638,0.684,0.402,-0.046,0.87,0.833,0.622,0.037,0.83,0.821,0.526,0.009,0.735,0.519,0.316,0.217,"RF","RF"
+"repleta","Specialist",21.7,0.645,0.547,0.096,0.098,0.835,0.569,0.175,0.267,0.824,0.584,0.086,0.24,0.858,0.612,0.168,0.247,"MaxEnt","RF"
+"funebris","Specialist",22.4,0.703,0.479,0.022,0.224,0.895,0.746,0.473,0.149,0.781,0.785,0.61,-0.004,0.918,0.735,0.425,0.183,"GAM","GAM"

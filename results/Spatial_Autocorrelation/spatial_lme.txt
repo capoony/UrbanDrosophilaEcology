@@ -1,0 +1,206 @@
+
+--- Spatial LME: Shannon Diversity ---
+
+Fitting basic LME (no spatial structure)...
+Attempting spatial LME (exponential correlation)...
+
+Warning: Spatial LME model failed to converge. Showing basic LME only.
+
+Basic LME (no spatial structure):
+Linear mixed-effects model fit by REML
+  Data: lme_data 
+       AIC     BIC    logLik
+  103.3293 125.321 -44.66466
+
+Random effects:
+ Formula: ~1 | Month
+        (Intercept) Residual
+StdDev:   0.1021937 0.299745
+
+Fixed effects:  Shannon ~ Longitude + Latitude + Indoors + Month 
+               Value Std.Error  DF    t-value p-value
+(Intercept) 36.49163  32.53249 167  1.1216980  0.2636
+Longitude    0.58191   0.53325 167  1.0912478  0.2767
+Latitude    -0.94001   0.69543 167 -1.3516851  0.1783
+Indoors     -0.12631   0.06584 167 -1.9184762  0.0568
+Month        0.01399   0.03507   4  0.3990741  0.7102
+ Correlation: 
+          (Intr) Longtd Latitd Indors
+Longitude -0.021                     
+Latitude  -0.965 -0.241              
+Indoors    0.374  0.073 -0.383       
+Month     -0.042  0.080  0.011 -0.065
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.54968431 -0.75050419  0.01059554  0.69954933  2.85845153 
+
+Number of Observations: 176
+Number of Groups: 6 
+
+AIC (basic):  103.3293 
+
+
+--- Spatial LME: Species Richness ---
+
+Fitting basic LME (no spatial structure)...
+Attempting spatial LME (exponential correlation)...
+
+Warning: Spatial LME model failed to converge. Showing basic LME only.
+
+Basic LME (no spatial structure):
+Linear mixed-effects model fit by REML
+  Data: lme_data 
+       AIC      BIC    logLik
+  547.7575 569.7491 -266.8787
+
+Random effects:
+ Formula: ~1 | Month
+         (Intercept) Residual
+StdDev: 0.0002343482 1.115149
+
+Fixed effects:  Richness ~ Longitude + Latitude + Indoors + Month 
+                Value Std.Error  DF   t-value p-value
+(Intercept) 199.02316 120.40419 167  1.652959  0.1002
+Longitude     2.08724   1.95170 167  1.069447  0.2864
+Latitude     -4.74718   2.57605 167 -1.842815  0.0671
+Indoors      -0.33941   0.23965 167 -1.416264  0.1586
+Month        -0.10337   0.07092   4 -1.457503  0.2187
+ Correlation: 
+          (Intr) Longtd Latitd Indors
+Longitude -0.015                     
+Latitude  -0.966 -0.243              
+Indoors    0.365  0.098 -0.380       
+Month     -0.020  0.136 -0.020 -0.079
+
+Standardized Within-Group Residuals:
+       Min         Q1        Med         Q3        Max 
+-1.8082742 -0.8075695 -0.1415493  0.6549423  4.5923140 
+
+Number of Observations: 176
+Number of Groups: 6 
+
+AIC (basic):  547.7575 
+
+--- Spatial LME: Simpson Diversity ---
+
+Fitting basic LME (no spatial structure)...
+Attempting spatial LME (exponential correlation)...
+
+Warning: Spatial LME model failed to converge. Showing basic LME only.
+
+Basic LME (no spatial structure):
+Linear mixed-effects model fit by REML
+  Data: lme_data 
+        AIC       BIC   logLik
+  -99.35233 -77.36068 56.67616
+
+Random effects:
+ Formula: ~1 | Month
+        (Intercept)  Residual
+StdDev:  0.05568825 0.1657571
+
+Fixed effects:  Simpson ~ Longitude + Latitude + Indoors + Month 
+                Value Std.Error  DF    t-value p-value
+(Intercept) 14.069770 17.989367 167  0.7821159  0.4353
+Longitude    0.271657  0.294854 167  0.9213270  0.3582
+Latitude    -0.376088  0.384555 167 -0.9779805  0.3295
+Indoors     -0.066646  0.036401 167 -1.8308875  0.0689
+Month        0.009893  0.019231   4  0.5144510  0.6341
+ Correlation: 
+          (Intr) Longtd Latitd Indors
+Longitude -0.021                     
+Latitude  -0.965 -0.241              
+Indoors    0.374  0.073 -0.383       
+Month     -0.042  0.080  0.011 -0.065
+
+Standardized Within-Group Residuals:
+        Min          Q1         Med          Q3         Max 
+-2.74304566 -0.67059952  0.09464938  0.71646176  1.89934263 
+
+Number of Observations: 176
+Number of Groups: 6 
+
+AIC (basic):  -99.35233 
+
+--- Spatial LME: Inverse Simpson Diversity ---
+
+Fitting basic LME (no spatial structure)...
+Attempting spatial LME (exponential correlation)...
+
+Warning: Spatial LME model failed to converge. Showing basic LME only.
+
+Basic LME (no spatial structure):
+Linear mixed-effects model fit by REML
+  Data: lme_data 
+       AIC    BIC    logLik
+  350.5484 372.54 -168.2742
+
+Random effects:
+ Formula: ~1 | Month
+        (Intercept)  Residual
+StdDev:   0.2321708 0.6165889
+
+Fixed effects:  InvSimpson ~ Longitude + Latitude + Indoors + Month 
+               Value Std.Error  DF    t-value p-value
+(Intercept) 66.65103  66.94281 167  0.9956414  0.3209
+Longitude    1.31575   1.09766 167  1.1986864  0.2323
+Latitude    -1.79285   1.43091 167 -1.2529501  0.2120
+Indoors     -0.20309   0.13558 167 -1.4979767  0.1360
+Month        0.03338   0.07647   4  0.4365252  0.6850
+ Correlation: 
+          (Intr) Longtd Latitd Indors
+Longitude -0.021                     
+Latitude  -0.965 -0.241              
+Indoors    0.374  0.072 -0.383       
+Month     -0.043  0.075  0.013 -0.063
+
+Standardized Within-Group Residuals:
+       Min         Q1        Med         Q3        Max 
+-1.7977641 -0.7295189 -0.1388435  0.4725989  4.1355019 
+
+Number of Observations: 176
+Number of Groups: 6 
+
+AIC (basic):  350.5484 
+
+--- Spatial LME: Eveness ---
+
+Fitting basic LME (no spatial structure)...
+Attempting spatial LME (exponential correlation)...
+
+Warning: Spatial LME model failed to converge. Showing basic LME only.
+
+Basic LME (no spatial structure):
+Linear mixed-effects model fit by REML
+  Data: lme_data 
+        AIC       BIC   logLik
+  -23.08076 -1.089111 18.54038
+
+Random effects:
+ Formula: ~1 | Month
+        (Intercept)  Residual
+StdDev:  0.02605082 0.2093575
+
+Fixed effects:  Eveness ~ Longitude + Latitude + Indoors + Month 
+                Value Std.Error  DF    t-value p-value
+(Intercept) 13.512339 22.645044 167  0.5967018  0.5515
+Longitude    0.225353  0.369037 167  0.6106512  0.5423
+Latitude    -0.346335  0.484354 167 -0.7150453  0.4756
+Indoors     -0.060600  0.045396 167 -1.3349311  0.1837
+Month        0.026572  0.015917   4  1.6693890  0.1704
+ Correlation: 
+          (Intr) Longtd Latitd Indors
+Longitude -0.018                     
+Latitude  -0.966 -0.242              
+Indoors    0.368  0.087 -0.381       
+Month     -0.028  0.116 -0.008 -0.073
+
+Standardized Within-Group Residuals:
+       Min         Q1        Med         Q3        Max 
+-3.1482794 -0.5204488  0.1616682  0.6829682  1.7207328 
+
+Number of Observations: 176
+Number of Groups: 6 
+
+AIC (basic):  -23.08076 

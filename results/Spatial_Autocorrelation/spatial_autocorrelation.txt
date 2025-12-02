@@ -1,0 +1,108 @@
+Creating spatial weights matrix (k=8 nearest neighbors)...
+
+--- Moran's I: Shannon Diversity ---
+
+	Moran I test under randomisation
+
+data:  shannon_div  
+weights: listw    
+
+Moran I statistic standard deviate = 4.4817, p-value = 3.702e-06
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+     0.1279329846     -0.0045248869      0.0008734993 
+
+
+--- Moran's I: Species Richness ---
+
+	Moran I test under randomisation
+
+data:  richness  
+weights: listw    
+
+Moran I statistic standard deviate = 7.9728, p-value = 7.753e-16
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+      0.230165759      -0.004524887       0.000866492 
+
+
+--- Moran's I: Simpson Diversity ---
+
+	Moran I test under randomisation
+
+data:  simpson_div  
+weights: listw    
+
+Moran I statistic standard deviate = 3.0184, p-value = 0.001271
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+     0.0847687216     -0.0045248869      0.0008751762 
+
+
+--- Moran's I: Inverse Simpson Diversity ---
+
+	Moran I test under randomisation
+
+data:  invsimpson_div  
+weights: listw    
+
+Moran I statistic standard deviate = 3.3726, p-value = 0.0003723
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+     0.0944842316     -0.0045248869      0.0008618343 
+
+
+--- Moran's I: Eveness ---
+
+	Moran I test under randomisation
+
+data:  evenness_filled  
+weights: listw    
+
+Moran I statistic standard deviate = 2.6034, p-value = 0.004615
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+      0.072139308      -0.004524887       0.000867135 
+
+Note: 46 NA values replaced with mean for testing.
+
+--- Moran's I: Individual Species ---
+
+melanogaster:
+  Moran's I = 0.063, p-value = 0.0016
+
+simulans:
+  Moran's I = 0.082, p-value = 9e-04
+
+suzukii:
+  Moran's I = 0.043, p-value = 0.0211
+
+hydei:
+  Moran's I = 0, p-value = 0.4039
+
+mercatorum:
+  Moran's I = 0.071, p-value = 4e-04
+
+repleta:
+  Moran's I = 0.025, p-value = 0.128
+
+funebris:
+  Moran's I = 0.044, p-value = 0.0356
+
+immigrans:
+  Moran's I = 0.134, p-value = 0
+
+--- Moran's I Correlogram ---
+Computing distance-based correlogram...
+100  of  999 200  of  999 300  of  999 400  of  999 500  of  999 600  of  999 700  of  999 800  of  999 900  of  999               Length Class  Mode     
+n             21     -none- numeric  
+mean.of.class 21     -none- numeric  
+correlation   21     -none- numeric  
+x.intercept    1     -none- numeric  
+p             21     -none- numeric  
+call           2     -none- character

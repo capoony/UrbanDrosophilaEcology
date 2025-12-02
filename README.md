@@ -17,6 +17,8 @@ UrbanDrosophilaEcology/
 │   ├── RDA_Vienna_full/           # Vienna-specific RDA results
 │   ├── Rarefaction/               # Species accumulation analysis
 │   ├── Descriptive/               # Descriptive statistics
+│   ├── Spatial_Autocorrelation/# Spatial autocorrelation analysis
+│   ├── Temporal_Analysis_Repeated_Sites/ # Temporal trends at frequently sampled sites
 │   └── SDM/                       # Species distribution models
 ├── scripts/                       # Python utilities
 │   ├── getSpartacus.py            # SPARTACUS data retrieval
@@ -28,8 +30,11 @@ UrbanDrosophilaEcology/
 │   ├── GetEOdata.sh               # Earth observation data acquisition
 │   ├── BioDiv_Vienna.r            # Biodiversity analysis
 │   ├── RDA_Vienna_full.r          # Redundancy analysis
+│   ├── RDA_Vienna_full_collapsed.r # RDA with temporally collapsed data
 │   ├── Rarefaction_Vienna.r       # Species accumulation and completeness analysis
 │   ├── Descriptive.r              # Descriptive statistics
+│   ├── Spatial_Autocorrelation_Analysis.r # Spatial autocorrelation and LME models
+│   ├── Temporal_Analysis_Repeated_Sites.r # Temporal trends at repeated sites
 │   └── SDM_Vienna.sh              # Species distribution modeling
 └── README.md                      # This file
 ```
@@ -155,7 +160,76 @@ bash shell/main.sh
 - Variance partitioning results
 - Model selection statistics
 
-### 6. Species Distribution Modeling (SDM)
+### 6. Redundancy Analysis with Collapsed Dates
+
+**Script:** `shell/RDA_Vienna_full_collapsed.r`
+
+**Purpose:** RDA analysis with temporally aggregated data to remove temporal variation and focus on spatial patterns.
+
+### 7. Spatial Autocorrelation Analysis
+
+**Script:** `shell/Spatial_Autocorrelation_Analysis.r`
+
+**Methods:**
+
+- Moran's I test for spatial autocorrelation in diversity indices
+- Spatial correlograms across distance classes
+- Linear mixed models (LME) with spatial correlation structures
+- Comparison of correlation structures: Exponential, Gaussian, Spherical, Rational Quadratic
+- AIC-based model selection for optimal spatial structure
+
+**Key Features:**
+
+- Distance-based neighbor analysis using k-nearest neighbors
+- Spatial weights matrices with row standardization
+- Monte-Carlo permutation tests (999 permutations) for significance
+- Spatial correlation modeling with `nlme::corExp`, `corGaus`, `corSpher`, `corRatio`
+- Random effects for repeated measures by location (ParticipantId)
+
+**Outputs:**
+
+- Moran's I statistics with significance tests for each diversity index
+- Spatial correlograms showing autocorrelation patterns across distances
+- LME model comparisons with AIC values and p-values in table format
+- Best-fitting spatial correlation structure for each diversity metric
+- Diagnostic plots for spatial residual patterns
+
+### 8. Temporal Analysis for Repeatedly Sampled Sites
+
+**Script:** `shell/Temporal_Analysis_Repeated_Sites.r`
+
+**Methods:**
+
+- Restriction to locations sampled ≥3 times (high-frequency sites)
+- PERMANOVA tests for temporal patterns by month and week
+- Linear mixed models with random effects for location (ParticipantId)
+- Model comparison: Linear vs. Quadratic temporal trends
+- Likelihood ratio tests for model selection
+
+**Diversity Metrics Analyzed:**
+
+- Shannon diversity index
+- Species richness
+- Simpson diversity
+- Inverse Simpson diversity
+- Pielou's evenness
+
+**Statistical Approach:**
+
+- Mixed-effects models: `lmer(Diversity ~ Month + (1|ParticipantId))`
+- Polynomial trends: `lmer(Diversity ~ poly(Month, 2) + (1|ParticipantId))`
+- AIC-based model comparison
+- Chi-square tests for significance of quadratic terms
+
+**Outputs:**
+
+- Summary tables with AIC values for all models
+- P-value tables from likelihood ratio tests
+- Best model selection for each diversity index
+- Temporal trend plots with population-level predictions
+- PERMANOVA results for community composition changes over time
+
+### 9. Species Distribution Modeling (SDM)
 
 **Scripts:**
 

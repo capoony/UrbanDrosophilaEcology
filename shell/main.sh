@@ -58,13 +58,25 @@ echo "RDA for Vienna samples completed."
 echo
 
 # Step 6: Redundancy Analyses with all sampling dates collapsed
-echo "Step 6: RDA with collapsed sampling dates..."
+echo "Step 8: RDA with collapsed sampling dates..."
 Rscript "${WD}/shell/RDA_Vienna_full_collapsed.r" "${WD}"
 echo "RDA with collapsed dates completed."
 echo
 
-# Step 7: Species Distribution Models
-echo "Step 7: Running Species Distribution Models..."
+# Step 7: Spatial Autocorrelation Analysis
+echo "Step 6: Spatial Autocorrelation Analysis..."
+Rscript "${WD}/shell/Spatial_Autocorrelation_Analysis.r"
+echo "Spatial autocorrelation analysis completed."
+echo
+
+# Step 8: Temporal Analysis for Repeatedly Sampled Sites
+echo "Step 7: Temporal Analysis for Repeatedly Sampled Sites..."
+Rscript "${WD}/shell/Temporal_Analysis_Repeated_Sites.r"
+echo "Temporal analysis for repeated sites completed."
+echo
+
+# Step 9: Species Distribution Models
+echo "Step 9: Running Species Distribution Models..."
 bash "${WD}/shell/SDM_Vienna.sh" "${WD}"
 echo "Species Distribution Models completed."
 echo
