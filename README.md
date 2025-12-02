@@ -135,7 +135,6 @@ bash shell/main.sh
 **Scripts:**
 
 - `shell/RDA_Vienna_full.r` - Complete Vienna dataset
-- `shell/RDA_Vienna_full_collapsed.r` - Temporally collapsed data
 - `shell/RDA_AllSamples.r` - Full dataset including non-Vienna samples
 
 **Methods:**
