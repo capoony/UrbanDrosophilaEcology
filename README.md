@@ -230,20 +230,30 @@ bash shell/main.sh
 
 ### 9. Species Distribution Modeling (SDM)
 
-**Scripts:**
+**Script:** `shell/SDM_Vienna.sh`
 
-- `shell/SDM_Vienna.sh` - Random Forest approach
+**Data:** 58 environmental raster layers, Hellinger-transformed species abundances
 
-**Methods:**
+**Methods:** Comparative evaluation using four approaches:
 
-- **Single Algorithm**: Random Forest with 500 trees
+1. **GLM** (primary) - Binomial model for cross-species comparability
+2. **Random Forest** (sensitivity) - Species-specific parameters (generalists vs specialists)
+3. **GAM** - Smooth terms for non-linear relationships
+4. **MaxEnt** - Maximum entropy when available
+
+**Validation:**
+
 - 80/20 train-test split with stratified sampling
-- 5-fold cross-validation
-- Performance metrics: R², RMSE, MAE
+- Performance metrics: AUC (discrimination), Kappa (accuracy), overfitting scores
+- ROC curve analysis for threshold optimization
 
 **Outputs:**
 
-- Habitat suitability maps (GeoTIFF format)
+- Species-specific performance metrics and confusion matrices
+- Model comparison table across all methods and species
+- ROC curves comparing all approaches
+- Spatial predictions: GeoTIFF rasters for RF (visualization) and GLM (comparison)
+- Compound figures: Distribution maps with presence points
 - Model performance statistics
 - Visualization with Stadia basemaps
-- Compound figures for major vs. minor species
+- Compound figures for all tested species
